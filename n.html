@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .gif {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 15%;
+    }
+
+    .p1 {
+      font-family: Arial;
+      text-align: center;
+      font-size: 48px;
+    }
+
+    .p2 {
+      font-family: Arial;
+      text-align: center;
+      font-size: 25px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center; /* Center the buttons */
+      position: relative;
+      margin-top: 20px; /* Add space from the content above */
+    }
+
+    .button-wrapper {
+      display: flex;
+      justify-content: space-between; /* Space between buttons */
+      width: 600px; /* Total width for the button container */
+    }
+
+    .button1, 
+    .button2 {
+      width: 250px; 
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer; 
+      border: none;
+      color: white; 
+      text-align: center;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 20px;
+      font-family: Arial;
+      position: relative; /* Position relative for proper placement */
+    }
+
+    .button1 {
+      background-image: url('F:/New folder/heart.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .button2 {
+      background-color: rgb(224, 89, 112);
+      color: white;
+    }
+  </style>
+</head>
+<body style="background-color: rgb(233, 192, 200);">
+  <br><br><br><br><br><br>
+  <img src="F:\New folder\55.gif" class="gif">
+  <p class="p1">Baby man jao na ! kitna bhav Khaogi &#128557;</p>
+  <p class="p2">bahut galat baat hai yaar &#128557;</p>
+  <div class="button-container">
+    <div class="button-wrapper">
+      <button onclick="window.location.href='o.html'" class="button1">Yes</button>
+      <button class="button2" onmouseover="moveButton(this)">No</button>
+    </div>
+  </div>
+
+  <script>
+    function moveButton(button) {
+      // Prevent movement if the button is near the edge
+      const container = button.parentElement;
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+      const buttonWidth = button.clientWidth;
+      const buttonHeight = button.clientHeight;
+
+      // Ensure the button stays within the container bounds
+      const maxX = containerWidth - buttonWidth;
+      const maxY = containerHeight - buttonHeight;
+
+      // Calculate a random position but avoid the area where "Yes" button is located
+      let randomX, randomY;
+      do {
+        randomX = Math.random() * maxX;
+        randomY = Math.random() * maxY;
+      } while (isOverlappingWithYesButton(randomX, randomY, buttonWidth, buttonHeight));
+
+      button.style.left = randomX + 'px';
+      button.style.top = randomY + 'px';
+    }
+
+    function isOverlappingWithYesButton(x, y, buttonWidth, buttonHeight) {
+      const yesButton = document.querySelector('.button1');
+      const yesButtonRect = yesButton.getBoundingClientRect();
+      const buttonRect = {
+        left: x,
+        top: y,
+        right: x + buttonWidth,
+        bottom: y + buttonHeight
+      };
+
+      return !(buttonRect.right < yesButtonRect.left ||
+               buttonRect.left > yesButtonRect.right ||
+               buttonRect.bottom < yesButtonRect.top ||
+               buttonRect.top > yesButtonRect.bottom);
+    }
+  </script>
+</body>
+</html>
